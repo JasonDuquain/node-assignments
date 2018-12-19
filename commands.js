@@ -17,6 +17,14 @@ function evaluateCmd(userInput) {
         case "cat":
             commandLibrary.cat(userInputArray.slice(1));
             break;
+        case "head":
+            commandLibrary.head(userInputArray.slice(1));
+            break;
+        case "tail":
+            commandLibrary.head(userInputArray.slice(1));
+            break;
+        default:
+            commandLibrary.errorHandler();
     }
 }
 
@@ -30,7 +38,34 @@ const commandLibrary = {
             if (err) throw err;
             done(data);
         })
+    },
+    'head': function(fullPath) {
+        const fileName = fullPath[0];
+        const data = fs.readFileSync(fileName, 'utf8');
+        const lines = data.split('\n');
+        let result = [];
+        for (let i = 0; i < 5; i++) {
+            result.push(lines[i])
+        }
+        result = result.join('\n');
+        done(result);
+    },
+    'tail': function(fullPath) {
+        const fileName = fullPath[0];
+        const data = fs.readFileSync(fileName, 'utf8');
+        let lines = data.split('\n');
+        lines.reverse();
+        let result = [];
+        for (let i = 0; i < 5; i++) {
+            result.push(lines[i])
+        }
+        result = result.join('\n');
+        done(result);
+    },
+    "errorHandler": function() {
+        done('No command found. Try again.');
     }
+    
 };
 
 

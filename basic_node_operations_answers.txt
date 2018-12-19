@@ -163,6 +163,20 @@ This command will first sort the commands.js file alphabetically and then pipe t
 
 6.
 
+function reverseString(inputString) {
+    let result = inputString.split(' ');
+    let newArray = [];
+    
+    result.forEach((el, idx) => {
+        let reverseString = el.split('').reverse().join('');
+        newArray.push(reverseString);
+    })
+    
+    newArray = newArray.join(' ');
+    return newArray;
+}
+
+console.log(reverseString("I'm learning to program algorithms!"));
 
 
 
